@@ -9,7 +9,7 @@
     @for (pais of paises(); track $index) {
     <mat-grid-tile>
         <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
-            <img [src]="pais.flags.png" width="200px" height="200px"/>
+            <img [src]="pais.flags.png" width="200px" height="200px" (click)="seleccionarpais(pais)" />
             <p>{{pais.name.common}}</p>
         </div>
     </mat-grid-tile>

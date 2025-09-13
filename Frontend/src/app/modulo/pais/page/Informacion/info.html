@@ -1,0 +1,23 @@
+<div style="display: flex; justify-content: center; align-items: center;">
+  <mat-card style="padding: 1rem; max-width: 600px;">
+    <mat-card-header>
+      <mat-card-title>{{ data()?.name?.common }} ({{ data()?.cca3 }})</mat-card-title>
+      <mat-card-subtitle>{{ data()?.region }} - {{ data()?.subregion }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div style="display: flex; flex-direction: column; gap: 1rem; align-items: center;">
+        <div style="display: flex; gap: 2rem; justify-content: center; width: 100%;margin-top: 1rem;">
+          <img [src]="data()?.flags?.png" width="200" [alt]="data()?.name?.common + ' Flag'" />
+          <img [src]="data()?.coatOfArms?.png" width="150" [alt]="data()?.name?.common + ' Coat of Arms'" />
+        </div>
+        <div style="text-align: left; width: 100%;">
+          <p><strong>Capital:</strong> {{ data()?.capital?.join(', ') || 'N/A' }}</p>
+          <p><strong>Población:</strong> {{ data()?.population | number}}</p>
+          <p><strong>Continente:</strong> {{ data()?.continents?.join(', ') }}</p>
+          <p><strong>Nombres alternativos:</strong> {{ data()?.altSpellings?.join(', ') }}</p>
+          <p><strong>Zona horaria:</strong> {{ data()?.timezones?.join(', ') }}</p>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
