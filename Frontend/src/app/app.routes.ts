@@ -4,6 +4,8 @@ import { Registro } from './modulo/autenticacion/page/registro/registro';
 import { Dashboard } from './modulo/principal/page/dashboard/dashboard';
 import { Viajes } from './modulo/viajes/page/viajes/viajes';
 import { Principallayout } from './modulo/principal/layout/principallayout/principallayout';
+import { Paises } from './modulo/pais/page/paises/paises';
+
 
 export const routes: Routes = [
     { path: 'autenticacion/login', component: Login },
@@ -12,7 +14,8 @@ export const routes: Routes = [
         path: 'principal', component: Principallayout,
         children: [
             { path: 'dashboard', component: Dashboard },
-            { path: 'viajes', component: Viajes }
+            { path: 'viajes', component: Viajes },
+            { path: 'paises', component: Paises }
         ]
     }
 ];
