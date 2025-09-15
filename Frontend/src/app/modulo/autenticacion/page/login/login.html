@@ -1,21 +1,32 @@
-<table width="100%" height="100%">
-    <tr>
-        <td align="center" valign="middle">
-            <div>
-                <h3>Login</h3>
-                <form action="#" method="post">
-                    <label for="first">Usuario:</label><br>
-                    <input type="text" id="first" name="first" placeholder="Ingrese su usuario" required><br><br>
-                    <label for="password">Password:</label><br>
-                    <input type="password" id="password" name="password" placeholder="Ingrese su Contraseña"required><br><br>
-                    <div>
-                        <button type="submit">Login</button>
-                    </div>
-                </form>
-                <p>¿No estás registrado?
-                    <a routerLink="/autenticacion/registro">Crea una cuenta</a>
-                </p>
-            </div>
-        </td>
-    </tr>
-</table>
+<div style="text-align:center; margin-top: 50px;">
+  <h3>Login</h3>
+  
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <div>
+      <label for="email">Correo electrónico:</label><br>
+      <input type="email" id="email" formControlName="email" placeholder="Ingresa tu correo">
+      <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+        <small *ngIf="loginForm.get('email')?.errors?.['required']">El correo es obligatorio</small>
+        <small *ngIf="loginForm.get('email')?.errors?.['email']">Correo no válido</small>
+      </div>
+    </div>
+    <br>
+
+    <div>
+      <label for="password">Contraseña:</label><br>
+      <input type="password" id="password" formControlName="password" placeholder="Ingresa tu contraseña">
+      <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+        <small *ngIf="loginForm.get('password')?.errors?.['required']">La contraseña es obligatoria</small>
+      </div>
+    </div>
+    <br>
+
+    <button type="submit">Iniciar sesión</button>
+  </form>
+
+  <div *ngIf="errorMsg" style="color:red; margin-top: 10px;">
+    {{ errorMsg }}
+  </div>
+
+  <p>¿No tienes cuenta? <a routerLink="/autenticacion/registro">Regístrate</a></p>
+</div>
