@@ -5,9 +5,11 @@
         <a class="link" routerLink="dashboard">Dashboard</a>
         <a class="link" routerLink="viajes">Viajes</a>
         <a class="link" routerLink="paises">Paises</a>
+        <a class="link" (click)="logout()">Cerrar sesión</a>
     </div>
 </mat-toolbar>
 
 <div style="margin: 2rem;">
+
     <router-outlet></router-outlet>
 </div>
