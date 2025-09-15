@@ -7,7 +7,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="FirebaseAdmin" Version="3.4.0" />
+    <PackageReference Include="Google.Apis.Auth" Version="1.71.0" />
+    <PackageReference Include="Google.Cloud.Firestore" Version="3.10.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.20" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Config\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Config\worldtrek-86213-firebase-adminsdk-fbsvc-8d2b539f08.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

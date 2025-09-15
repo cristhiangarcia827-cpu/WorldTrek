@@ -1,3 +1,5 @@
+using API.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -13,6 +15,10 @@ builder.Services.AddHttpClient("CountriesAPI", client =>
 });
 
 builder.Services.AddScoped<API.Services.CountryService>();
+
+builder.Services.AddSingleton<FirebaseService>();
+
+builder.Services.AddSingleton<PasswordService>();
 
 builder.Services.AddCors(options =>
 {
