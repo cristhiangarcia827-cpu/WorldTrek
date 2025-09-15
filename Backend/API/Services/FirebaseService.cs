@@ -113,6 +113,7 @@ namespace API.Services
             var query = _firestoreDb.Collection("users");
             var snapshot = await query.GetSnapshotAsync();
 
+
             var users = new List<Users>();
 
             foreach (var document in snapshot.Documents)
@@ -121,6 +122,95 @@ namespace API.Services
             }
             return users;
         }
+        
+        public async Task<string> SaveViajeAsync(Viaje viaje)
+        {
+            var viajesRef = _firestoreDb.Collection("viajes");
+            var docRef = await viajesRef.AddAsync(viaje);
+            return docRef.Id; 
+        }
+
+        public async Task<List<Viaje>> GetViajesByUsuarioAsync(string usuarioId)
+        {
+            var query = _firestoreDb.Collection("viajes")
+                                    .WhereEqualTo("UsuarioId", usuarioId);
+
+            var snapshot = await query.GetSnapshotAsync();
+
+            var viajes = new List<Viaje>();
+            foreach (var document in snapshot.Documents)
+            {
+                viajes.Add(document.ConvertTo<Viaje>());
+            }
+            return viajes;
+        }
+        public async Task<bool> UpdateViajeAsync(string viajeId, Viaje viaje)
+        {
+            var docRef = _firestoreDb.Collection("viajes").Document(viajeId);
+            var snapshot = await docRef.GetSnapshotAsync();
+
+            if (!snapshot.Exists) return false;
+
+            await docRef.SetAsync(viaje, SetOptions.Overwrite);
+            return true;
+        }
+
+        public async Task<bool> DeleteViajeAsync(string viajeId)
+        {
+            var docRef = _firestoreDb.Collection("viajes").Document(viajeId);
+            var snapshot = await docRef.GetSnapshotAsync();
+
+            if (!snapshot.Exists) return false;
+
+            await docRef.DeleteAsync();
+            return true;
+        }
+
+        public async Task<List<Viaje>> GetAllViajesAsync()
+        {
+            var query = _firestoreDb.Collection("viajes");
+            var snapshot = await query.GetSnapshotAsync();
+
+            var viajes = new List<Viaje>();
+            foreach (var document in snapshot.Documents)
+            {
+                viajes.Add(document.ConvertTo<Viaje>());
+            }
+            return viajes;
+        }
+
+        public async Task<string> SaveFavoritoAsync(Favorito favorito)
+        {
+            var favoritosRef = _firestoreDb.Collection("favoritos");
+            var docRef = await favoritosRef.AddAsync(favorito);
+            return docRef.Id;
+        }
+
+        public async Task<List<Favorito>> GetFavoritosByUsuarioAsync(string usuarioId)
+        {
+            var query = _firestoreDb.Collection("favoritos")
+                                    .WhereEqualTo("UsuarioId", usuarioId);
+
+            var snapshot = await query.GetSnapshotAsync();
+
+            var favoritos = new List<Favorito>();
+            foreach (var document in snapshot.Documents)
+            {
+                favoritos.Add(document.ConvertTo<Favorito>());
+            }
+            return favoritos;
+        }
+
+        public async Task<bool> DeleteFavoritoAsync(string favoritoId)
+        {
+            var docRef = _firestoreDb.Collection("favoritos").Document(favoritoId);
+            var snapshot = await docRef.GetSnapshotAsync();
+
+            if (!snapshot.Exists) return false;
+
+            await docRef.DeleteAsync();
+            return true;
+        }
+
     }
 }
-
