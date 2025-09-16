@@ -1,4 +1,24 @@
-<p>dashboard works!</p>
-    <span>
-        Hola, {{ nombreUsuario() }}
-    </span>
+<div class="dashboard-header">
+    <h2>Bienvenido, {{ nombreUsuario() }}</h2>
+</div>
+
+<h3>Favoritos recientes</h3>
+
+@if(paisService.paisesFavoritos().length==0){
+<p>No tienes países favoritos aún.</p>
+}
+
+<table>
+    <thead>
+        <th>Codigo Pais</th>
+        <th>Fecha Agregado</th>
+    </thead>
+    <tbody>
+        @for (pais of paisService.paisesFavoritos(); track pais.codigoPais) {
+            <tr>
+                <td>{{pais.codigoPais}}</td>
+                <td>{{pais.fechaAgregado }}</td>
+            </tr>
+        }
+    </tbody>
+</table>

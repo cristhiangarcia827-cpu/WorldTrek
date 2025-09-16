@@ -16,22 +16,20 @@ import { MatIcon } from '@angular/material/icon';
 })
 export class InfoComponent {
   data = signal<CountryAPIResponse | null>(null);
+  esFavorito = signal<boolean>(false);
 
   constructor(private paisService: PaisService) {
     this.data.set(paisService.paisSeleccionado());
+    this.esFavorito.set(this.paisService.esFavorito(paisService.paisSeleccionado()!));
   }
-  
-toggleFavorito() {
-  const pais = this.data();
 
-  if (pais) {
-    this.paisService.toggleFavorito(pais);
+  toggleFavorito() {
+    const pais = this.data();
+
+    if (pais) {
+      this.paisService.toggleFavorito(pais);
+      this.esFavorito.set(this.paisService.esFavorito(pais));
+    }
+
   }
-  
-}
-
-esFavorito(): boolean {
-  const pais = this.data();
-  return pais ? this.paisService.esFavorito(pais) : false;
-}
 }

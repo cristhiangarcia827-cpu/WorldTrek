@@ -6,6 +6,7 @@ import { environment } from '../../../../environments/environment';
 import { AutenticacionService } from '../../autenticacion/service/autenticacion';
 
 export interface Favorito {
+  id?: string;
   usuarioId: string;
   codigoPais: string;
   fechaAgregado: Date;
@@ -16,7 +17,7 @@ export interface Favorito {
 })
 export class PaisService {
   paisSeleccionado = signal<CountryAPIResponse | null>(null);
-  favoritos = signal<Set<string>>(new Set());
+  paisesFavoritos = signal<Favorito[]>([]);
 
   constructor(private httpClient: HttpClient, private authService: AutenticacionService) {
     const usuario = this.authService.usuarioActual();
@@ -35,6 +36,7 @@ export class PaisService {
 
   toggleFavorito(pais: CountryAPIResponse) {
     const usuario = this.authService.usuarioActual();
+
     if (!usuario) {
       alert('Debes iniciar sesión para marcar favoritos');
       return;
@@ -42,35 +44,46 @@ export class PaisService {
 
     const usuarioId = usuario.user.id;
     const codigoPais = pais.cca2;
-    const set = new Set(this.favoritos());
+    const existeEnFavoritos = this.esFavorito(pais);
 
-    if (set.has(codigoPais)) {
-      set.delete(codigoPais);
-      this.eliminarFavorito(usuarioId, codigoPais);
+    if (existeEnFavoritos) {
+      let paisFavorito = this.paisesFavoritos().find(x => x.codigoPais == pais.cca2);
+      this.eliminarFavorito(paisFavorito?.id);
     } else {
-      set.add(codigoPais);
       this.guardarFavorito(usuarioId, codigoPais);
     }
-
-    this.favoritos.set(set);
   }
 
   esFavorito(pais: CountryAPIResponse): boolean {
-    return this.favoritos().has(pais.cca2);
+    let existeEnFavoritos = this.paisesFavoritos().find(x => x.codigoPais == pais.cca2);
+
+    if (existeEnFavoritos == undefined) {
+      return false;
+    } else {
+      return true;
+    }
+
   }
 
   cargarFavoritos(usuarioId: string) {
     this.httpClient.get<Favorito[]>(`${environment.APIURL}/country/favoritos/${usuarioId}`).subscribe(favs => {
-      const set = new Set(favs.map(f => f.codigoPais));
-      this.favoritos.set(set);
+      this.paisesFavoritos.set(favs);
     });
   }
+
   private guardarFavorito(usuarioId: string, codigoPais: string) {
     const favorito: Favorito = { usuarioId, codigoPais, fechaAgregado: new Date() };
-    this.httpClient.post(`${environment.APIURL}/country/favoritos`, favorito).subscribe();
+    this.httpClient.post<{ id: string }>(`${environment.APIURL}/country/favoritos`, favorito).subscribe(e => this.paisesFavoritos.update(state => [...state, { ...favorito, id: e.id }]));
   }
 
-  private eliminarFavorito(usuarioId: string, codigoPais: string) {
-    this.httpClient.delete(`${environment.APIURL}/country/favoritos/${usuarioId}/${codigoPais}`).subscribe();
+  private eliminarFavorito(favoritoId?: string) {
+    this.httpClient.delete(`${environment.APIURL}/country/favoritos/${favoritoId}`).subscribe(e => {
+      let indice = this.paisesFavoritos().findIndex(e => e.id === favoritoId);
+      if (indice !== -1) {
+        console.log("SE ACTUALIZO DESDE ELIMINAR");
+        let copiaFavoritos = [...this.paisesFavoritos()];
+        this.paisesFavoritos.set(copiaFavoritos.splice(indice, 1));
+      }
+    });
   }
 }

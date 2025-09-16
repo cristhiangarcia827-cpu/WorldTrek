@@ -38,8 +38,8 @@ namespace API.Controllers
             return Ok(new { id });
         }
 
-        [HttpDelete("favoritos/{userId}/{favoritoId}")]
-        public async Task<IActionResult> DeleteFavorito(string userId, string favoritoId)
+        [HttpDelete("favoritos/{favoritoId}")]
+        public async Task<IActionResult> DeleteFavorito(string favoritoId)
         {
             var eliminado = await _firebaseService.DeleteFavoritoAsync(favoritoId);
             return Ok(new { eliminado });

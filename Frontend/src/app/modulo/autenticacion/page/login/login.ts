@@ -34,8 +34,6 @@ export class Login implements OnInit {
       
       this.authService.login(data).subscribe({
         next: (res: AuthResponse) => {
-          console.log('Login exitoso:', res);
-          this.authService.setUsuario(res); // Guardar usuario
           this.router.navigate(['/principal']); // Redirige a dashboard o página principal
         },
         error: (err) => {
