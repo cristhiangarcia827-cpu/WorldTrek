@@ -1,0 +1,43 @@
+<div class="nuevo-viaje-container">
+    <h2>{{ viajeEditar ? 'Editar viaje' : 'Planificar nuevo viaje' }}</h2>
+
+    <form [formGroup]="viajeForm" (ngSubmit)="guardarViaje()">
+        <div>
+            <label for="titulo">Título:</label>
+            <input id="titulo" type="text" formControlName="titulo" required>
+        </div>
+
+        <div>
+            <label for="paisdestino">País destino:</label>
+            <input id="paisdestino" type="text" formControlName="paisdestino" required>
+        </div>
+
+        <div>
+            <label for="fechaInicio">Fecha inicio:</label>
+            <input id="fechaInicio" type="date" formControlName="fechaInicio" required>
+        </div>
+
+        <div>
+            <label for="fechaFin">Fecha fin:</label>
+            <input id="fechaFin" type="date" formControlName="fechaFin" required>
+        </div>
+
+        <div>
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" formControlName="descripcion"></textarea>
+        </div>
+
+        <div If="viajeEditar">
+            <label for="estado">Estado:</label>
+            <select id="estado" formControlName="estado">
+                <option value="Planificado">Planificado</option>
+                <option value="Completado">Completado</option>
+            </select>
+        </div>
+
+
+        <button type="submit" [disabled]="viajeForm.invalid">
+            {{ viajeEditar ? 'Actualizar viaje' : 'Crear viaje' }}
+        </button>
+    </form>
+</div>

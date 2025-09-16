@@ -1,29 +1,35 @@
-<div class="viajes-container">
-    <h1>Mis Viajes</h1>
+<h1>Mis Viajes</h1>
 
-    <!-- Filtro por estado -->
-    <div class="filtro">
-        <label>Filtrar por estado:</label>
-        <button (click)="aplicarFiltro('')">Todos</button>
-        <button (click)="aplicarFiltro('Planificado')">Planificado</button>
-        <button (click)="aplicarFiltro('Completado')">Completado</button>
-    </div>
+<!-- Botón para crear nuevo viaje -->
+<button (click)="nuevoViaje()">Nuevo viaje</button>
 
-    <!-- Lista de viajes -->
-    <div class="lista-viajes" *ngIf="viajes.length > 0; else noViajes">
-        <div class="viaje-card" *ngFor="let viaje of viajes">
-            <h2>{{ viaje.titulo }}</h2>
-            <p><strong>Destino:</strong> {{ viaje.paisdestino }}</p>
-            <p><strong>Fecha inicio:</strong> {{ viaje.fechaInicio | date:'mediumDate' }}</p>
-            <p><strong>Fecha fin:</strong> {{ viaje.fechaFin | date:'mediumDate' }}</p>
-            <p><strong>Estado:</strong> {{ viaje.estado }}</p>
-            <p><strong>Descripción:</strong> {{ viaje.descripcion }}</p>
-            <button (click)="eliminarViaje(viaje.id!)">Eliminar</button>
-        </div>
-    </div>
-
-    <!-- Mensaje si no hay viajes -->
-    <ng-template #noViajes>
-        <p>No tienes viajes registrados.</p>
-    </ng-template>
+<!-- Filtro de estado -->
+<div class="filtro">
+    <label>Filtrar por estado:</label>
+    <button (click)="aplicarFiltro('Todo')">Todos</button>
+    <button (click)="aplicarFiltro('Planificado')">Planificado</button>
+    <button (click)="aplicarFiltro('Completado')">Completado</button>
 </div>
+
+<!-- Formulario de nuevo/editar viaje -->
+@if(mostrarFormulario){
+<div>
+    <nuevo-viaje [viajeEditar]="viajeSeleccionado" (ngSubmit)="cerrarFormulario()">
+    </nuevo-viaje>
+    <button (click)="cerrarFormulario()">Cancelar</button>
+</div>
+}
+
+<!-- Lista de viajes -->
+@for (viaje of viajes(); track viaje.id) {
+<div class="viaje-card">
+    <h2>{{ viaje.titulo }}</h2>
+    <p>Destino: {{ viaje.paisDestino }}</p>
+    <p>Fecha inicio: {{ viaje.fechaInicio | date:'mediumDate' }}</p>
+    <p>Fecha fin: {{ viaje.fechaFin | date:'mediumDate' }}</p>
+    <p>Descripción: {{ viaje.descripcion }}</p>
+    <p>Estado: {{ viaje.estado }}</p>
+    <button (click)="editarViaje(viaje)">Editar</button>
+    <button (click)="eliminarViaje(viaje.id!)">Eliminar</button>
+</div>
+}

@@ -8,7 +8,7 @@ export interface Viaje {
   id?: string;
   usuarioId: string;
   titulo: string;
-  paisdestino: string;
+  paisDestino: string;
   fechaInicio: Date;
   fechaFin: Date;
   estado: string;
