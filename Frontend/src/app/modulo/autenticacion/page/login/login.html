@@ -1,63 +1,73 @@
-<div class="login-container">
-  <div class="login-card">
-    <div class="brand">
-      <img src="https://cdn-icons-png.flaticon.com/512/69/69906.png" alt="Logo" />
-      <h2>WorldTrek</h2>
-      <p class="subtitle">Explora el mundo con nosotros 🌍✈️</p>
-    </div>
-
-    <h3>Iniciar sesión</h3>
-
-    <form [formGroup]="loginForm" (ngSubmit)="login()">
-      <!-- EMAIL -->
-      <div class="input-group">
-        <label for="email">Correo electrónico</label>
-        <input type="email" id="email" formControlName="email" placeholder="usuario@email.com">
-        <div class="error" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
-          <small *ngIf="loginForm.get('email')?.errors?.['required']">El correo es obligatorio</small>
-          <small *ngIf="loginForm.get('email')?.errors?.['email']">Correo no válido</small>
-        </div>
+<!-- Envuelve todo en un contenedor principal para el fondo -->
+<div class="auth-wrapper">
+  <div class="login-container">
+    <div class="login-card">
+      <div class="brand">
+        <img src="https://cdn-icons-png.flaticon.com/512/69/69906.png" alt="WorldTrek Logo" />
+        <h2>WorldTrek</h2>
+        <p class="subtitle">Explora el mundo con nosotros 🌍✈️</p>
       </div>
 
-      <!-- PASSWORD -->
-      <div class="input-group">
-        <label for="password">Contraseña</label>
-        <input type="password" id="password" formControlName="password" placeholder="********">
-        <div class="error" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
-          <small *ngIf="loginForm.get('password')?.errors?.['required']">La contraseña es obligatoria</small>
+      <h3>Iniciar sesión</h3>
+
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <!-- EMAIL -->
+        <div class="input-group">
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" formControlName="email" placeholder="usuario@email.com">
+          <div class="error" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+            <small *ngIf="loginForm.get('email')?.errors?.['required']">El correo es obligatorio</small>
+            <small *ngIf="loginForm.get('email')?.errors?.['email']">Correo no válido</small>
+          </div>
         </div>
+
+        <!-- PASSWORD -->
+        <div class="input-group">
+          <label for="password">Contraseña</label>
+          <input type="password" id="password" formControlName="password" placeholder="********">
+          <div class="error" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+            <small *ngIf="loginForm.get('password')?.errors?.['required']">La contraseña es obligatoria</small>
+          </div>
+        </div>
+
+        <!-- BOTÓN -->
+        <button type="submit" class="btn-login" [disabled]="!loginForm.valid">Iniciar sesión</button>
+      </form>
+
+      <div *ngIf="errorMsg" class="error-message">
+        {{ errorMsg }}
       </div>
 
-      <!-- BOTÓN -->
-      <button type="submit" class="btn-login">Iniciar sesión</button>
-    </form>
-
-    <div *ngIf="errorMsg" class="error-message">
-      {{ errorMsg }}
+      <p class="register-text">¿No tienes cuenta? <a routerLink="/autenticacion/registro">Regístrate</a></p>
     </div>
-
-    <p class="register-text">¿No tienes cuenta? <a routerLink="/autenticacion/registro">Regístrate</a></p>
   </div>
 </div>
 
 <!-- === CSS INTEGRADO === -->
 <style>
-  body {
+  /* === GLOBALES PARA AUTENTICACIÓN === */
+  /* Aplicamos los estilos de fondo y centrado a .auth-wrapper */
+  .auth-wrapper {
     margin: 0;
-    font-family: "Segoe UI", Roboto, sans-serif;
-    background: url('https://images.pexels.com/photos/346885/pexels-photo-346885.jpeg?auto=compress&cs=tinysrgb&w=1920') no-repeat center center/cover;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-family: 'Google Sans', 'Roboto', sans-serif; /* Consistencia con Google 2025 */
+    /* Tu imagen de fondo y sus propiedades */
+    background: url('https://th.bing.com/th/id/R.7e2f76ea40c845743e119c877fc7b23c?rik=vLVczXfH9wkQAQ&pid=ImgRaw&r=0') no-repeat center center/cover;
+    min-height: 100vh; /* Asegura que ocupe toda la altura de la ventana */
+    display: flex; /* Usamos flexbox para centrar el contenido */
+    justify-content: center; /* Centrado horizontal */
+    align-items: center; /* Centrado vertical */
+    padding: 2rem; /* Espacio alrededor en pantallas pequeñas */
+    box-sizing: border-box; /* Incluye padding en el tamaño total */
   }
 
+  /* El resto de estilos se aplican a los elementos internos */
   .login-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    padding: 2rem;
+    width: 100%; /* Asegura que el contenedor interno ocupe el ancho disponible */
+    /* Eliminamos el padding aquí si ya lo tiene .auth-wrapper, o lo ajustamos */
+    padding: 0; /* Ya lo maneja .auth-wrapper */
   }
 
   .login-card {
@@ -68,111 +78,138 @@
     width: 100%;
     box-shadow: 0px 8px 25px rgba(0,0,0,0.2);
     text-align: center;
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px); /* Efecto de desenfoque, funciona si el fondo de la card es ligeramente transparente */
     animation: fadeIn 0.7s ease-in-out;
+    border: 1px solid #e0e0e0; /* Un borde sutil para definirla mejor */
   }
 
   .brand img {
     width: 50px;
     height: 50px;
+    margin-bottom: 0.5rem; /* Espacio debajo del logo */
   }
 
   .brand h2 {
-    margin: 0.5rem 0 0;
+    margin: 0 0 0.2rem; /* Ajuste de margen para mejor alineación */
     font-size: 1.8rem;
-    color: #2c3e50;
+    color: #202124; /* Color de texto más oscuro de Google */
+    font-family: 'Google Sans', 'Roboto', sans-serif; /* Usar fuente Google */
+    font-weight: 700;
   }
 
   .subtitle {
     margin: 0;
-    font-size: 0.9rem;
-    color: #777;
+    font-size: 0.95rem; /* Ligeramente más grande para mejor lectura */
+    color: #5f6368; /* Color de texto Google */
+    margin-bottom: 1.5rem; /* Más espacio debajo del subtítulo */
   }
 
   h3 {
     margin-top: 1.5rem;
-    margin-bottom: 1rem;
-    font-size: 1.3rem;
-    color: #333;
+    margin-bottom: 1.2rem; /* Un poco más de espacio debajo del h3 */
+    font-size: 1.4rem; /* Ligeramente más grande */
+    color: #202124; /* Color de texto más oscuro de Google */
+    font-family: 'Google Sans', 'Roboto', sans-serif; /* Usar fuente Google */
+    font-weight: 600;
   }
 
   .input-group {
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.5rem; /* Más espacio entre grupos de input */
     text-align: left;
   }
 
     .input-group label {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #444;
+      font-size: 0.95rem; /* Ligeramente más grande */
+      font-weight: 500; /* Menos negrita, más suave */
+      color: #3c4043; /* Color de texto Google */
+      display: block; /* Asegurar que la etiqueta esté en su propia línea */
+      margin-bottom: 0.4rem;
     }
 
     .input-group input {
       width: 100%;
-      padding: 0.8rem;
-      border-radius: 10px;
-      border: 1px solid #ddd;
+      padding: 1rem 1.2rem; /* Más padding interno para una sensación más premium */
+      border-radius: 12px; /* Bordes más redondeados */
+      border: 1px solid #dadce0; /* Borde sutil de Google */
       outline: none;
-      margin-top: 0.3rem;
-      font-size: 1rem;
-      transition: border 0.3s;
+      font-size: 1.05rem; /* Fuente más grande en input */
+      color: #202124;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+      box-sizing: border-box; /* Importante: incluye padding y border en el ancho total */
     }
 
       .input-group input:focus {
-        border: 1px solid #4cafef;
-        box-shadow: 0px 0px 6px rgba(76, 175, 239, 0.5);
+        border-color: #4285f4; /* Azul de Google al enfocar */
+        box-shadow: 0px 0px 0px 3px rgba(66, 133, 244, 0.2); /* Sombra de enfoque sutil */
+        background-color: #fcfdff; /* Fondo ligeramente azulado al enfocar */
       }
 
   .btn-login {
     width: 100%;
-    padding: 0.9rem;
+    padding: 1.1rem; /* Más padding para el botón */
     border: none;
-    border-radius: 10px;
-    background: linear-gradient(135deg, #4cafef, #1976d2);
+    border-radius: 12px; /* Bordes redondeados */
+    background: linear-gradient(135deg, #1a73e8, #4285f4); /* Degradado azul de Google */
     color: white;
-    font-size: 1rem;
-    font-weight: bold;
+    font-size: 1.1rem; /* Fuente del botón más grande */
+    font-weight: 600; /* Más negrita */
     cursor: pointer;
-    transition: transform 0.2s ease, background 0.3s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Sombra suave */
+    margin-top: 0.5rem; /* Para dar un poco de espacio sobre el botón */
   }
 
     .btn-login:hover {
       transform: translateY(-2px);
-      background: linear-gradient(135deg, #42a5f5, #1565c0);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+      background: linear-gradient(135deg, #1760c3, #3b78e7); /* Degradado más oscuro al hover */
+    }
+
+    .btn-login:disabled { /* Estilo para botón deshabilitado */
+      background: #dadce0;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+      color: #9aa0a6;
     }
 
   .error {
-    color: red;
-    font-size: 0.8rem;
-    margin-top: 0.3rem;
+    color: #ea4335; /* Rojo de error de Google */
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    text-align: left;
+    display: block; /* Para que siempre ocupe su propia línea */
   }
 
-  .error-message {
+  .error-message { /* Mantener el estilo para el error general */
     margin-top: 1rem;
-    color: red;
+    color: #ea4335;
     font-size: 0.9rem;
+    font-weight: 500;
   }
 
   .register-text {
-    margin-top: 1.2rem;
-    font-size: 0.9rem;
-    color: #555;
+    margin-top: 1.8rem; /* Más espacio debajo del botón */
+    font-size: 1rem;
+    color: #5f6368; /* Color de texto Google */
   }
 
     .register-text a {
-      color: #1976d2;
+      color: #1a73e8; /* Azul de Google para enlaces */
       text-decoration: none;
       font-weight: 600;
+      transition: color 0.2s ease;
     }
 
       .register-text a:hover {
         text-decoration: underline;
+        color: #1760c3;
       }
 
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(20px);
     }
 
     to {
@@ -182,13 +219,53 @@
   }
 
   /* RESPONSIVE */
-  @media (max-width: 500px) {
+  @media (max-width: 600px) {
+    .auth-wrapper {
+      padding: 1rem; /* Más padding en los lados para móvil */
+    }
+
     .login-card {
-      padding: 2rem 1.5rem;
+      padding: 2rem 1.5rem; /* Ajustar padding en móvil */
+      border-radius: 16px;
+      box-shadow: 0px 6px 18px rgba(0,0,0,0.1);
+    }
+
+    .brand img {
+      width: 45px;
+      height: 45px;
     }
 
     .brand h2 {
-      font-size: 1.5rem;
+      font-size: 1.7rem;
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+    }
+
+    h3 {
+      font-size: 1.3rem;
+      margin-top: 1.3rem;
+      margin-bottom: 1rem;
+    }
+
+    .input-group {
+      margin-bottom: 1.2rem;
+    }
+
+      .input-group input {
+        padding: 0.9rem 1rem;
+        font-size: 1rem;
+      }
+
+    .btn-login {
+      padding: 1rem;
+      font-size: 1rem;
+    }
+
+    .register-text {
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
     }
   }
 </style>
