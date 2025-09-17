@@ -43,9 +43,7 @@ registrar() {
 
     this.authService.register(data).subscribe({
       next: res => {
-        console.log('Usuario registrado:', res);
-        this.authService.setUsuario(res);
-        this.router.navigate(['/principal']);
+        this.router.navigate(['/autenticacion/login']);
       },
       error: err => console.error('Error en registro:', err)
     });

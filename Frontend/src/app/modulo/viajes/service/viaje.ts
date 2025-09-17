@@ -23,21 +23,19 @@ export interface Usuario {
   providedIn: 'root'
 })
 export class ViajesService {
-  usuarioActual: Usuario | null = null;
   viajes = signal<Viaje[]>([]);
 
   constructor(private http: HttpClient, private authService: AutenticacionService) {
     const usuario = this.authService.usuarioActual();
     if (usuario) {
-      this.usuarioActual = { usuarioId: usuario.user.id };
       this.cargarViajes();
     }
   }
 
   cargarViajes(): void {
-    if (!this.usuarioActual) return;
+    if (!this.authService.usuarioActual()) return;
 
-    this.getViajesUsuario(this.usuarioActual.usuarioId).subscribe({
+    this.getViajesUsuario(this.authService.usuarioActual()?.user.id!).subscribe({
       next: (data) => this.viajes.set(data),
       error: (err: any) => console.error('Error al cargar viajes:', err)
     });
@@ -50,11 +48,11 @@ export class ViajesService {
   }
 
   crearViaje(viaje: Viaje): void {
-    if (!this.usuarioActual) {
+    if (!this.authService.usuarioActual()) {
       alert('Debes iniciar sesión para crear un viaje');
       return;
     }
-    viaje.usuarioId = this.usuarioActual.usuarioId;
+    viaje.usuarioId = this.authService.usuarioActual()?.user.id!;
 
     this.http.post<{ id: string; mensaje: string }>(`${environment.APIURL}/trips`, viaje).subscribe({
       next: (res) => {

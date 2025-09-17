@@ -29,6 +29,6 @@ export class Paises {
 
   seleccionarpais(pais: CountryAPIResponse) {
     this.paisservice.SeleccionarPais(pais);
-    this.router.navigate(["/principal/paisdetalle"])
+    this.router.navigate(["/paisdetalle"])
   }
 }

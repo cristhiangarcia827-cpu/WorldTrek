@@ -15,10 +15,37 @@
     </thead>
     <tbody>
         @for (pais of paisService.paisesFavoritos(); track pais.codigoPais) {
-            <tr>
-                <td>{{pais.codigoPais}}</td>
-                <td>{{pais.fechaAgregado }}</td>
-            </tr>
+        <tr>
+            <td>{{pais.codigoPais}}</td>
+            <td>{{pais.fechaAgregado }}</td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Resumen de Viajes</h3>
+@if (viajes().length === 0) {
+<p>No tienes viajes registrados.</p>
+}
+<table>
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Destino</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (viaje of viajes(); track viaje.id) {
+        <tr>
+            <td>{{ viaje.titulo }}</td>
+            <td>{{ viaje.paisDestino }}</td>
+            <td>{{ viaje.fechaInicio | date:'mediumDate' }}</td>
+            <td>{{ viaje.fechaFin | date:'mediumDate' }}</td>
+            <td>{{ viaje.estado }}</td>
+        </tr>
         }
     </tbody>
 </table>

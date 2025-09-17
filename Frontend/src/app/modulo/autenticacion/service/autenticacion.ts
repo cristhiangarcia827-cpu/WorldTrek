@@ -51,11 +51,11 @@ export class AutenticacionService {
 
   setUsuario(authData: AuthResponse) {
     this.usuarioActual.set(authData);
-    localStorage.setItem('auth', JSON.stringify(authData));
+    localStorage.setItem('usuario', JSON.stringify(authData));
   }
 
   logout() {
     this.usuarioActual.set(null);
-    localStorage.removeItem('auth');
+    localStorage.removeItem('usuario');
   }
 }

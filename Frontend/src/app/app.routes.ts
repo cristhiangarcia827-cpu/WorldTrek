@@ -12,9 +12,9 @@ export const routes: Routes = [
     { path: 'autenticacion/login', component: Login },
     { path: 'autenticacion/registro', component: Registro },
     {
-        path: 'principal', component: Principallayout, 
+        path: '', component: Principallayout, 
         children: [
-            { path: 'dashboard', component: Dashboard },
+            { path: '', component: Dashboard, },
             { path: 'viajes', component: Viajes },
             { path: 'paises', component: Paises },
             { path: 'paisdetalle', component: InfoComponent }

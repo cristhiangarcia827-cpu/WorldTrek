@@ -34,7 +34,7 @@ export class Login implements OnInit {
       
       this.authService.login(data).subscribe({
         next: (res: AuthResponse) => {
-          this.router.navigate(['/principal']); // Redirige a dashboard o página principal
+          this.router.navigate(['/']); // Redirige a dashboard o página principal
         },
         error: (err) => {
           console.error('Error en login:', err);
