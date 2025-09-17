@@ -6,16 +6,18 @@ import { Viajes } from './modulo/viajes/page/viajes/viajes';
 import { Principallayout } from './modulo/principal/layout/principallayout/principallayout';
 import { Paises } from './modulo/pais/page/paises/paises';
 import { InfoComponent } from './modulo/pais/page/Informacion/info';
+import { DashboardComponent } from './modulo/viajes/pages/dashboard/dashboard';
 
 
 export const routes: Routes = [
     { path: 'autenticacion/login', component: Login },
-    { path: 'autenticacion/registro', component: Registro },
+  { path: 'autenticacion/registro', component: Registro },
     {
         path: 'principal', component: Principallayout, 
         children: [
             { path: 'dashboard', component: Dashboard },
-            { path: 'viajes', component: Viajes },
+          { path: 'viajes', component: Viajes },
+          { path: 'dashboard', component: Dashboard },
             { path: 'paises', component: Paises },
             { path: 'paisdetalle', component: InfoComponent }
         ]
