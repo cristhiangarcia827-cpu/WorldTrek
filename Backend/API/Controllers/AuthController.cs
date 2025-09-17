@@ -123,6 +123,31 @@ namespace API.Controllers
                 return BadRequest(new { message = "Error al obtener usuario", error = ex.Message });
             }
         }
+
+        [HttpPut("update/{userId}")]
+        public async Task<IActionResult> UpdateUser(string userId, [FromBody] UpdateUserRequest request)
+        {
+            try
+            {
+                var user = await _firebaseService.GetUserProfileAsync<Users>(userId);
+                if (user == null)
+                    return NotFound(new { message = "Usuario no encontrado" });
+
+                user.Nombre = request.Name ?? user.Nombre;
+                if (!string.IsNullOrWhiteSpace(request.Password))
+                {
+                    user.PasswordHash = _passwordService.HashPassword(request.Password);
+                }
+
+                await _firebaseService.SaveUserProfileAsync(userId, user);
+
+                return Ok(new { message = "Usuario actualizado correctamente" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error al actualizar usuario", error = ex.Message });
+            }
+        }
     }
 }
 

@@ -24,6 +24,11 @@ export interface AuthResponse {
   };
 }
 
+export interface UpdateUserRequest {
+  name?: string;
+  password?: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -57,5 +62,22 @@ export class AutenticacionService {
   logout() {
     this.usuarioActual.set(null);
     localStorage.removeItem('usuario');
+  }
+
+    updateUser(userId: string, data: UpdateUserRequest): Observable<any> {
+    return this.http.put(`${environment.APIURL}/auth/update/${userId}`, data).pipe(
+      tap((response: any) => {
+        const usuario = this.usuarioActual();
+        if (usuario) {
+          this.setUsuario({
+            ...usuario,
+            user: {
+              ...usuario.user,
+              nombre: data.name ?? usuario.user.nombre
+            }
+          });
+        }
+      })
+    );
   }
 }

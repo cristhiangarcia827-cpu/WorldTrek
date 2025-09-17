@@ -1,0 +1,26 @@
+<div class="perfil-container">
+  <h2>Actualizar Perfil</h2>
+
+  <form [formGroup]="perfilForm" (ngSubmit)="guardarCambios()">
+    <div>
+      <label for="name">Nombre</label>
+      <input id="name" type="text" formControlName="name" />
+      <div *ngIf="perfilForm.get('name')?.invalid && perfilForm.get('name')?.touched" class="error">
+        El nombre es obligatorio y debe tener al menos 3 caracteres.
+      </div>
+    </div>
+
+    <div>
+      <label for="password">Nueva contraseña</label>
+      <input id="password" type="password" formControlName="password" />
+      <div *ngIf="perfilForm.get('password')?.invalid && perfilForm.get('password')?.touched" class="error">
+        La contraseña debe tener al menos 6 caracteres.
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="perfilForm.invalid">Guardar cambios</button>
+  </form>
+
+  <p *ngIf="mensaje" class="mensaje">{{ mensaje }}</p>
+</div>
+
