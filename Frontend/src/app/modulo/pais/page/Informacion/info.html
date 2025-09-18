@@ -1,21 +1,31 @@
-<div style="display: flex; justify-content: center; align-items: center;">
-  <mat-card style="padding: 1rem; max-width: 600px;">
-    <mat-card-header>
-      <mat-card-title>{{ data()?.name?.common }} ({{ data()?.cca3 }})</mat-card-title>
-      <button mat-icon-button color="warn" (click)="toggleFavorito()">
+<div style="display: flex; justify-content: center; align-items: center; padding: 2rem; background: #f0f4f8; min-height: 100vh;">
+  <mat-card style="padding: 1.5rem; max-width: 700px; width: 100%; border-radius: 16px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); transition: transform 0.2s ease;">
+    
+    <mat-card-header style="display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+      <div>
+        <mat-card-title style="font-size: 1.5rem; font-weight: 700; color: #2c3e50;">
+          {{ data()?.name?.common }} ({{ data()?.cca3 }})
+        </mat-card-title>
+        <mat-card-subtitle style="color: #7f8c8d;">
+          {{ data()?.region }} - {{ data()?.subregion }}
+        </mat-card-subtitle>
+      </div>
+      <button mat-icon-button color="warn" (click)="toggleFavorito()" style="font-size: 1.5rem;">
         <mat-icon>{{ esFavorito() ? 'favorite' : 'favorite_border' }}</mat-icon>
       </button>
-      <mat-card-subtitle>{{ data()?.region }} - {{ data()?.subregion }}</mat-card-subtitle>
     </mat-card-header>
+
     <mat-card-content>
-      <div style="display: flex; flex-direction: column; gap: 1rem; align-items: center;">
-        <div style="display: flex; gap: 2rem; justify-content: center; width: 100%;margin-top: 1rem;">
-          <img [src]="data()?.flags?.png" width="200" [alt]="data()?.name?.common + ' Flag'" />
-          <img [src]="data()?.coatOfArms?.png" width="150" [alt]="data()?.name?.common + ' Coat of Arms'" />
+      <div style="display: flex; flex-direction: column; gap: 1.5rem; align-items: center; margin-top: 1rem;">
+        
+        <div style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;">
+          <img [src]="data()?.flags?.png" width="200" [alt]="data()?.name?.common + ' Flag'" style="border-radius: 8px; border: 1px solid #ccc; box-shadow: 0 4px 12px rgba(0,0,0,0.1); cursor: pointer;">
+          <img [src]="data()?.coatOfArms?.png" width="150" [alt]="data()?.name?.common + ' Coat of Arms'" style="border-radius: 8px; border: 1px solid #ccc; box-shadow: 0 4px 12px rgba(0,0,0,0.1); cursor: pointer;">
         </div>
-        <div style="text-align: left; width: 100%;">
+
+        <div style="text-align: left; width: 100%; font-size: 14px; color: #34495e;">
           <p><strong>Capital:</strong> {{ data()?.capital?.join(', ') || 'N/A' }}</p>
-          <p><strong>Población:</strong> {{ data()?.population | number}}</p>
+          <p><strong>Población:</strong> {{ data()?.population | number }}</p>
           <p><strong>Continente:</strong> {{ data()?.continents?.join(', ') }}</p>
           <p><strong>Nombres alternativos:</strong> {{ data()?.altSpellings?.join(', ') }}</p>
           <p><strong>Zona horaria:</strong> {{ data()?.timezones?.join(', ') }}</p>
