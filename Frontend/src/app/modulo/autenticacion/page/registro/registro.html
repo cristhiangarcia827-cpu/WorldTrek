@@ -14,7 +14,6 @@
           <h3>Registro</h3>
           <form [formGroup]="registroForm" (ngSubmit)="registrar()">
 
-            <!-- USERNAME -->
             <div class="input-group">
               <label for="username">Nombre de usuario:</label>
               <input type="text" id="username" formControlName="username" placeholder="Ingresa tu usuario" required>
@@ -23,7 +22,6 @@
               </div>
             </div>
 
-            <!-- EMAIL -->
             <div class="input-group">
               <label for="email">Correo electrónico:</label>
               <input type="email" id="email" formControlName="email" placeholder="Ingresa tu correo" required>
@@ -33,7 +31,6 @@
               </div>
             </div>
 
-            <!-- PASSWORD -->
             <div class="input-group">
               <label for="password">Contraseña:</label>
               <input type="password" id="password" formControlName="password" placeholder="Ingresa tu contraseña" required>
@@ -45,7 +42,6 @@
               </div>
             </div>
 
-            <!-- CONFIRM PASSWORD -->
             <div class="input-group">
               <label for="confirmPassword">Confirmar contraseña:</label>
               <input type="password" id="confirmPassword" formControlName="confirmPassword" placeholder="Repite tu contraseña" required>
@@ -72,14 +68,11 @@
   </table>
 </div>
 
-<!-- === CSS INTEGRADO PARA REGISTRO === -->
 <style>
-  /* === GLOBALES PARA AUTENTICACIÓN === */
   .auth-wrapper {
     margin: 0;
     font-family: 'Google Sans', 'Roboto', sans-serif;
-    /* Un fondo más claro y vibrante, similar al del login */
-    background: url('https://th.bing.com/th/id/R.7e2f76ea40c845743e119c877fc7b23c?rik=vLVczXfH9wkQAQ&pid=ImgRaw&r=0') no-repeat center center/cover;
+    background: white;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -88,101 +81,97 @@
     box-sizing: border-box;
   }
 
-  /* El <table> en sí mismo, para asegurar que abarque el 100% como lo tenías */
   .registration-table {
-    border-collapse: collapse; /* Elimina espacios entre celdas */
+    border-collapse: collapse;
   }
 
-  /* La tarjeta de registro, estilizada para parecerse al login-card */
   .registration-card {
-    background: rgba(255, 255, 255, 0.98); /* Fondo casi blanco para mayor legibilidad */
-    padding: 2rem; /* Padding igual al login-card */
-    border-radius: 20px; /* Bordes redondeados como el login-card */
-    max-width: 400px; /* Ancho similar al login-card */
+    background: rgba(255, 255, 255, 0.98);
+    padding: 2rem;
+    border-radius: 20px; 
+    max-width: 400px;
     width: 100%;
-    box-shadow: 0px 8px 25px rgba(0,0,0,0.2); /* Sombra igual al login-card */
+    box-shadow: 0px 8px 25px rgba(0,0,0,0.2);
     text-align: center;
-    backdrop-filter: blur(8px); /* Efecto de desenfoque */
-    animation: fadeIn 0.7s ease-in-out; /* Animación de entrada */
-    border: 1px solid #e0e0e0; /* Borde sutil */
+    backdrop-filter: blur(8px); 
+    animation: fadeIn 0.7s ease-in-out; 
+    border: 1px solid #e0e0e0; 
   }
-
   .brand img {
-    width: 40px; /* Tamaño del logo igual al login-card */
+    width: 40px; 
     height: 40px;
-    margin-bottom: 0.5rem; /* Espacio debajo del logo */
+    margin-bottom: 0.5rem; 
   }
 
   .brand h2 {
     margin: 0 0 0.2rem;
-    font-size: 1.2rem; /* Tamaño de título igual al login-card */
-    color: #2c3e50; /* Color de título */
+    font-size: 1.2rem; 
+    color: #2c3e50; 
     font-weight: 700;
-    font-family: 'Google Sans', 'Roboto', sans-serif; /* Usar fuente Google */
+    font-family: 'Google Sans', 'Roboto', sans-serif; 
   }
 
   .subtitle {
     margin: 0;
-    font-size: 0.9rem; /* Tamaño de subtítulo igual al login-card */
-    color: #777; /* Color de subtítulo */
+    font-size: 0.9rem; 
+    color: #777; 
     margin-bottom: 1.5rem;
   }
 
   h3 {
     margin-top: 1.5rem;
     margin-bottom: 1rem;
-    font-size: 1.3rem; /* Tamaño de "Registro" igual al "Iniciar Sesión" */
+    font-size: 1.3rem; 
     color: #333;
     font-weight: 600;
-    font-family: 'Google Sans', 'Roboto', sans-serif; /* Usar fuente Google */
+    font-family: 'Google Sans', 'Roboto', sans-serif; 
   }
 
-  /* === INPUT GROUPS === */
   .input-group {
-    margin-bottom: 1.2rem; /* Espacio entre grupos de input */
+    margin-bottom: 1.2rem;
     text-align: left;
   }
 
     .input-group label {
-      font-size: 0.9rem; /* Tamaño de etiqueta igual al login-card */
+      font-size: 0.9rem;
       font-weight: 600;
       color: #444;
-      display: block; /* Asegura que la etiqueta esté en su propia línea */
+      display: block;
       margin-bottom: 0.4rem;
     }
 
     .input-group input {
       width: 100%;
-      padding: 0.8rem; /* Padding interno igual al login-card */
-      border-radius: 10px; /* Bordes redondeados igual al login-card */
+      padding: 0.8rem; 
+      border-radius: 10px; 
       border: 1px solid #ddd;
       outline: none;
-      font-size: 1rem; /* Fuente igual al login-card */
+      font-size: 1rem; 
       color: #202124;
       transition: border-color 0.3s ease, box-shadow 0.3s ease;
-      box-sizing: border-box; /* Fundamental para que el padding no desborde */
+      box-sizing: border-box; 
     }
 
       .input-group input:focus {
-        border-color: #4cafef; /* Azul de enfoque del login-card */
-        box-shadow: 0px 0px 0px 3px rgba(76, 175, 239, 0.2); /* Sombra de enfoque sutil */
-        background-color: #fcfdff; /* Fondo ligeramente azulado al enfocar */
+        border-color: #4cafef; 
+        box-shadow: 0px 0px 0px 3px rgba(76, 175, 239, 0.2); 
+        background-color: #fcfdff; 
       }
 
-  /* === BOTÓN DE REGISTRO === */
+  
   .btn-register {
     width: 100%;
-    padding: 0.9rem; /* Padding igual al btn-login */
+    padding: 0.9rem; 
     border: none;
-    border-radius: 10px; /* Bordes redondeados igual al btn-login */
-    background: linear-gradient(135deg, #1a73e8, #4285f4); /* Degradado azul de Google */
+    border-radius: 10px; 
+    background: linear-gradient(135deg, #1a73e8, #4285f4); 
     color: white;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    margin-top: 0.5rem; /* Para separar un poco de los inputs */
+    margin-top: 0.5rem; 
   }
 
     .btn-register:hover {
@@ -192,31 +181,29 @@
     }
 
     .btn-register:disabled {
-      background: #dadce0; /* Gris Google para deshabilitado */
+      background: #dadce0; 
       cursor: not-allowed;
       box-shadow: none;
       transform: none;
       color: #9aa0a6;
     }
 
-  /* === MENSAJES DE ERROR === */
   .error {
-    color: #ea4335; /* Rojo de error de Google */
+    color: #ea4335; 
     font-size: 0.85rem;
     margin-top: 0.3rem;
     text-align: left;
-    display: block; /* Asegura que el mensaje de error ocupe su propia línea */
+    display: block; 
   }
 
-  /* === TEXTO DE LOGIN === */
   .login-text {
-    margin-top: 1.2rem; /* Espacio superior igual al register-text del login */
+    margin-top: 1.2rem; 
     font-size: 0.9rem;
     color: #555;
   }
 
     .login-text a {
-      color: #1a73e8; /* Azul de Google para enlaces */
+      color: #1a73e8;
       text-decoration: none;
       font-weight: 600;
       transition: color 0.2s ease;
@@ -227,7 +214,6 @@
         color: #1760c3;
       }
 
-  /* === ANIMACIONES === */
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -240,10 +226,9 @@
     }
   }
 
-  /* === RESPONSIVE === */
   @media (max-width: 500px) {
     .registration-card {
-      padding: 2rem 1.5rem; /* Ajustar padding en móvil */
+      padding: 2rem 1.5rem; 
       border-radius: 16px;
     }
 

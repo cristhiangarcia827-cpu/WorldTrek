@@ -15,7 +15,6 @@
 </div>
 
 <style>
-  /* === NAVBAR PRINCIPAL CON SOMBRA === */
   mat-toolbar {
     background: white;
     color: black;
@@ -26,7 +25,7 @@
     z-index: 1000;
     display: flex;
     align-items: center;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 👈 sombra elegante */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   }
 
   .example-spacer {
@@ -39,7 +38,6 @@
     letter-spacing: 1px;
   }
 
-  /* === LINKS DE NAVEGACIÓN === */
   .nav-links {
     display: flex;
     gap: 1rem;
@@ -62,11 +60,11 @@
     .link::after {
       content: "";
       position: absolute;
-      bottom: -2px; /* raya debajo del texto */
+      bottom: -2px; 
       left: 0;
-      width: 0; /* empieza invisible */
+      width: 0; 
       height: 2px;
-      background-color: #4caf50; /* 👈 color verde elegante */
+      background-color: #4caf50; 
       transition: width 0.3s ease;
     }
 
@@ -79,25 +77,23 @@
     }
 
     .link:hover::after {
-      width: 100%; /* animación al hacer hover */
+      width: 100%; 
     }
 
     .link[routerLink="/"] {
-      font-weight: 600; /* Resaltar Inicio */
+      font-weight: 600;
     }
 
   .logout:hover {
     color: #f14545;
   }
 
-  /* === CONTENEDOR PRINCIPAL === */
   .main-container {
     padding: 2rem;
     background: white;
     min-height: calc(100vh - 64px);
   }
 
-  /* === RESPONSIVE === */
   @media (max-width: 768px) {
     mat-toolbar {
       flex-wrap: wrap;
