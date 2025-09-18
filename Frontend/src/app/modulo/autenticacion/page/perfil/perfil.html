@@ -1,26 +1,133 @@
-<div class="perfil-container">
-  <h2>Actualizar Perfil</h2>
 
-  <form [formGroup]="perfilForm" (ngSubmit)="guardarCambios()">
-    <div>
-      <label for="name">Nombre</label>
-      <input id="name" type="text" formControlName="name" />
-      <div *ngIf="perfilForm.get('name')?.invalid && perfilForm.get('name')?.touched" class="error">
-        El nombre es obligatorio y debe tener al menos 3 caracteres.
+<title>Actualizar Perfil</title>
+<body>
+  <div class="perfil-container">
+    <h2>Actualizar Perfil</h2>
+
+    <form [formGroup]="perfilForm" (ngSubmit)="guardarCambios()">
+      <div>
+        <label for="name">Nombre</label>
+        <input id="name" type="text" formControlName="name" />
+        <div *ngIf="perfilForm.get('name')?.invalid && perfilForm.get('name')?.touched" class="error">
+          El nombre es obligatorio y debe tener al menos 3 caracteres.
+        </div>
       </div>
-    </div>
 
-    <div>
-      <label for="password">Nueva contraseña</label>
-      <input id="password" type="password" formControlName="password" />
-      <div *ngIf="perfilForm.get('password')?.invalid && perfilForm.get('password')?.touched" class="error">
-        La contraseña debe tener al menos 6 caracteres.
+      <div>
+        <label for="password">Nueva contraseña</label>
+        <input id="password" type="password" formControlName="password" />
+        <div *ngIf="perfilForm.get('password')?.invalid && perfilForm.get('password')?.touched" class="error">
+          La contraseña debe tener al menos 6 caracteres.
+        </div>
       </div>
-    </div>
 
-    <button type="submit" [disabled]="perfilForm.invalid">Guardar cambios</button>
-  </form>
+      <button type="submit" [disabled]="perfilForm.invalid">Guardar cambios</button>
+    </form>
 
-  <p *ngIf="mensaje" class="mensaje">{{ mensaje }}</p>
-</div>
+    <p *ngIf="mensaje" class="mensaje">{{ mensaje }}</p>
+  </div>
+</body>
 
+<style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+
+    .perfil-container {
+      max-width: 400px;
+      width: 100%;
+      padding: 2rem;
+      border-radius: 12px;
+      background: #ffffff;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .perfil-container h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #2c3e50;
+    }
+
+    .perfil-container label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: #444;
+    }
+
+    .perfil-container input {
+      width: 100%;
+      padding: 0.7rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border 0.2s ease, box-shadow 0.2s ease;
+      background: #fafafa;
+    }
+
+    .perfil-container input:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0 3px rgba(0,123,255,0.15);
+      outline: none;
+      background: #fff;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.9rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: #007bff;
+      color: #fff;
+      transition: background 0.3s ease, transform 0.1s ease;
+    }
+
+    button:hover:not(:disabled) {
+      background: #0056b3;
+      transform: scale(1.02);
+    }
+
+    button:disabled {
+      background: #bbb;
+      cursor: not-allowed;
+    }
+
+    .error {
+      color: #e74c3c;
+      font-size: 0.85rem;
+      margin-top: -0.5rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .mensaje {
+      margin-top: 1rem;
+      font-weight: bold;
+      text-align: center;
+      color: #27ae60;
+    }
+
+    @media (max-width: 500px) {
+      .perfil-container {
+        padding: 1.5rem;
+      }
+    }
+  </style>

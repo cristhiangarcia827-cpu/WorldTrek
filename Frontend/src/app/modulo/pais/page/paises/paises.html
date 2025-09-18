@@ -1,17 +1,102 @@
-<div style="display: flex;gap: 1rem;align-items: center;">
+<body>
+
+  <h1>🌍 Buscador de Países</h1>
+
+  <div class="busqueda-container">
     <mat-form-field>
-        <mat-label>Nombre pais</mat-label>
-        <input matInput (input)="paisBusqueda.set(busqueda.value)" #busqueda>
+      <mat-label>Nombre país</mat-label>
+      <input matInput (input)="paisBusqueda.set(busqueda.value)" #busqueda>
     </mat-form-field>
-    <button matButton="filled" (click)="buscarPais()">Buscar</button>
-</div>
-<mat-grid-list cols="5" rowHeight="300px" gutterSize="1rem">
+    <button class="buscar-btn" (click)="buscarPais()">Buscar</button>
+  </div>
+
+  <mat-grid-list cols="5" rowHeight="300px" gutterSize="1rem">
     @for (pais of paises(); track $index) {
     <mat-grid-tile>
-        <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
-            <img [src]="pais.flags.png" width="200px" height="200px" (click)="seleccionarpais(pais)" />
-            <p>{{pais.name.common}}</p>
-        </div>
+      <div class="pais-card" (click)="seleccionarpais(pais)">
+        <img [src]="pais.flags.png" alt="Bandera de {{pais.name.common}}" />
+        <p>{{pais.name.common}}</p>
+      </div>
     </mat-grid-tile>
     }
-</mat-grid-list>
+  </mat-grid-list>
+</body>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f4f8;
+      padding: 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 2rem;
+    }
+
+    .busqueda-container {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .buscar-btn {
+      background: #007bff;
+      color: #fff;
+      font-weight: 600;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.1s ease;
+    }
+
+    .buscar-btn:hover {
+      background: #0056b3;
+      transform: scale(1.03);
+    }
+
+    .pais-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 1rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+
+    .pais-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+
+    .pais-card img {
+      width: 160px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 0.8rem;
+      border: 1px solid #ccc;
+    }
+
+    .pais-card p {
+      margin: 0;
+      font-weight: bold;
+      color: #34495e;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      mat-grid-list {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+    }
+  </style>

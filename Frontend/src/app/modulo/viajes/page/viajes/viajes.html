@@ -1,35 +1,169 @@
-<h1>Mis Viajes</h1>
+<title>Mis Viajes</title>
 
-<!-- Botón para crear nuevo viaje -->
-<button (click)="nuevoViaje()">Nuevo viaje</button>
+<body>
 
-<!-- Filtro de estado -->
-<div class="filtro">
+  <h1>Mis Viajes</h1>
+
+  <!-- Botón para crear nuevo viaje -->
+  <button class="nuevo-viaje-btn" (click)="nuevoViaje()">Nuevo viaje</button>
+
+  <!-- Filtro de estado -->
+  <div class="filtro">
     <label>Filtrar por estado:</label>
     <button (click)="aplicarFiltro('Todo')">Todos</button>
     <button (click)="aplicarFiltro('Planificado')">Planificado</button>
     <button (click)="aplicarFiltro('Completado')">Completado</button>
-</div>
+  </div>
 
-<!-- Formulario de nuevo/editar viaje -->
-@if(mostrarFormulario){
-<div>
+  <!-- Formulario de nuevo/editar viaje -->
+  @if(mostrarFormulario){
+  <div class="formulario-container">
     <nuevo-viaje [viajeEditar]="viajeSeleccionado" (ngSubmit)="cerrarFormulario()">
     </nuevo-viaje>
     <button (click)="cerrarFormulario()">Cancelar</button>
-</div>
-}
+  </div>
+  }
 
-<!-- Lista de viajes -->
-@for (viaje of viajes(); track viaje.id) {
-<div class="viaje-card">
+  <!-- Lista de viajes -->
+  @for (viaje of viajes(); track viaje.id) {
+  <div class="viaje-card">
     <h2>{{ viaje.titulo }}</h2>
     <p>Destino: {{ viaje.paisDestino }}</p>
     <p>Fecha inicio: {{ viaje.fechaInicio | date:'mediumDate' }}</p>
     <p>Fecha fin: {{ viaje.fechaFin | date:'mediumDate' }}</p>
     <p>Descripción: {{ viaje.descripcion }}</p>
-    <p>Estado: {{ viaje.estado }}</p>
+    <p><strong>Estado:</strong> {{ viaje.estado }}</p>
     <button (click)="editarViaje(viaje)">Editar</button>
     <button (click)="eliminarViaje(viaje.id!)">Eliminar</button>
-</div>
-}
+  </div>
+  }
+
+</body>
+
+<style>
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%);
+  }
+
+  h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-size: 2.2rem;
+  }
+
+  button {
+    background: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    margin: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.3s ease, transform 0.1s ease;
+  }
+
+  button:hover {
+    background: #2980b9;
+    transform: scale(1.02);
+  }
+
+  button:active {
+    transform: scale(0.97);
+  }
+
+  .nuevo-viaje-btn {
+    display: block;
+    margin: 0 auto 20px auto;
+    background: #27ae60;
+  }
+
+  .nuevo-viaje-btn:hover {
+    background: #219150;
+  }
+
+  .filtro {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .filtro label {
+    margin-right: 10px;
+    font-weight: bold;
+    color: #2c3e50;
+  }
+
+  .filtro button {
+    background: #95a5a6;
+  }
+
+  .filtro button:hover {
+    background: #7f8c8d;
+  }
+
+  .formulario-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  .viaje-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 15px auto;
+    max-width: 600px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .viaje-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .viaje-card h2 {
+    color: #34495e;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+  .viaje-card p {
+    margin: 6px 0;
+    color: #555;
+    font-size: 14px;
+  }
+
+
+  .viaje-card button {
+    margin-top: 10px;
+  }
+
+  .viaje-card button:first-of-type {
+    background: #f39c12;
+  }
+
+  .viaje-card button:first-of-type:hover {
+    background: #d68910;
+  }
+
+  .viaje-card button:last-of-type {
+    background: #e74c3c;
+  }
+
+  .viaje-card button:last-of-type:hover {
+    background: #c0392b;
+  }
+</style>

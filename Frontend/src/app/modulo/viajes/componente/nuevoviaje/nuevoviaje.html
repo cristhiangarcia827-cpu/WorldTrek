@@ -1,43 +1,165 @@
-<div class="nuevo-viaje-container">
+  <title>Planificador de Viajes</title>
+<body>
+  <div class="nuevo-viaje-container">
     <h2>{{ viajeEditar ? 'Editar viaje' : 'Planificar nuevo viaje' }}</h2>
 
     <form [formGroup]="viajeForm" (ngSubmit)="guardarViaje()">
-        <div>
-            <label for="titulo">Título:</label>
-            <input id="titulo" type="text" formControlName="titulo" required>
-        </div>
+      <div>
+        <label for="titulo">Título:</label>
+        <input id="titulo" type="text" formControlName="titulo" required>
+      </div>
 
-        <div>
-            <label for="paisdestino">País destino:</label>
-            <input id="paisdestino" type="text" formControlName="paisdestino" required>
-        </div>
+      <div>
+        <label for="paisdestino">País destino:</label>
+        <input id="paisdestino" type="text" formControlName="paisdestino" required>
+      </div>
 
-        <div>
-            <label for="fechaInicio">Fecha inicio:</label>
-            <input id="fechaInicio" type="date" formControlName="fechaInicio" required>
-        </div>
+      <div>
+        <label for="fechaInicio">Fecha inicio:</label>
+        <input id="fechaInicio" type="date" formControlName="fechaInicio" required>
+      </div>
 
-        <div>
-            <label for="fechaFin">Fecha fin:</label>
-            <input id="fechaFin" type="date" formControlName="fechaFin" required>
-        </div>
+      <div>
+        <label for="fechaFin">Fecha fin:</label>
+        <input id="fechaFin" type="date" formControlName="fechaFin" required>
+      </div>
 
-        <div>
-            <label for="descripcion">Descripción:</label>
-            <textarea id="descripcion" formControlName="descripcion"></textarea>
-        </div>
+      <div>
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" formControlName="descripcion"></textarea>
+      </div>
 
-        <div If="viajeEditar">
-            <label for="estado">Estado:</label>
-            <select id="estado" formControlName="estado">
-                <option value="Planificado">Planificado</option>
-                <option value="Completado">Completado</option>
-            </select>
-        </div>
+      <div *ngIf="viajeEditar">
+        <label for="estado">Estado:</label>
+        <select id="estado" formControlName="estado">
+          <option value="Planificado">Planificado</option>
+          <option value="Completado">Completado</option>
+        </select>
+      </div>
 
-
-        <button type="submit" [disabled]="viajeForm.invalid">
-            {{ viajeEditar ? 'Actualizar viaje' : 'Crear viaje' }}
-        </button>
+      <button type="submit"
+              [disabled]="viajeForm.invalid"
+              [ngClass]="viajeEditar ? 'editar' : 'crear'">
+        {{ viajeEditar ? 'Actualizar viaje' : 'Crear viaje' }}
+      </button>
     </form>
-</div>
+  </div>
+</body>
+
+<style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .nuevo-viaje-container {
+      width: 100%;
+      max-width: 500px;
+      padding: 2rem;
+      border-radius: 16px;
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .nuevo-viaje-container h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #2c3e50;
+    }
+
+    .nuevo-viaje-container label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: #444;
+    }
+
+    .nuevo-viaje-container input,
+    .nuevo-viaje-container textarea,
+    .nuevo-viaje-container select {
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border 0.2s ease, box-shadow 0.2s ease;
+      background: #fafafa;
+    }
+
+    .nuevo-viaje-container input:focus,
+    .nuevo-viaje-container textarea:focus,
+    .nuevo-viaje-container select:focus {
+      border-color: #6a5acd;
+      box-shadow: 0 0 0 3px rgba(106, 90, 205, 0.2);
+      outline: none;
+      background: #fff;
+    }
+
+    .nuevo-viaje-container textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .nuevo-viaje-container button {
+      width: 100%;
+      padding: 1rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.1s ease;
+    }
+
+    .nuevo-viaje-container button.crear {
+      background: #007bff;
+      color: #fff;
+    }
+
+    .nuevo-viaje-container button.crear:hover:not(:disabled) {
+      background: #0056b3;
+      transform: scale(1.02);
+    }
+
+    .nuevo-viaje-container button.editar {
+      background: #28a745;
+      color: #fff;
+    }
+
+    .nuevo-viaje-container button.editar:hover:not(:disabled) {
+      background: #218838;
+      transform: scale(1.02);
+    }
+    .nuevo-viaje-container button:disabled {
+      background: #bbb;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem;
+      }
+      .nuevo-viaje-container {
+        padding: 1.5rem;
+      }
+      .nuevo-viaje-container h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
