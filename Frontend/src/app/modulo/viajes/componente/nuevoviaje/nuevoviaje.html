@@ -1,4 +1,4 @@
-  <title>Planificador de Viajes</title>
+<title>Planificador de Viajes</title>
 <body>
   <div class="nuevo-viaje-container">
     <h2>{{ viajeEditar ? 'Editar viaje' : 'Planificar nuevo viaje' }}</h2>
@@ -24,12 +24,12 @@
         <input id="fechaFin" type="date" formControlName="fechaFin" required>
       </div>
 
-      <div>
+      <div class="full-width">
         <label for="descripcion">Descripción:</label>
         <textarea id="descripcion" formControlName="descripcion"></textarea>
       </div>
 
-      <div *ngIf="viajeEditar">
+      <div *ngIf="viajeEditar" class="full-width">
         <label for="estado">Estado:</label>
         <select id="estado" formControlName="estado">
           <option value="Planificado">Planificado</option>
@@ -37,70 +37,91 @@
         </select>
       </div>
 
-      <button type="submit"
-              [disabled]="viajeForm.invalid"
-              [ngClass]="viajeEditar ? 'editar' : 'crear'">
-        {{ viajeEditar ? 'Actualizar viaje' : 'Crear viaje' }}
-      </button>
+      <div class="full-width">
+        <button type="submit"
+                [disabled]="viajeForm.invalid"
+                [ngClass]="viajeEditar ? 'editar' : 'crear'">
+          {{ viajeEditar ? 'Actualizar viaje' : 'Crear viaje' }}
+        </button>
+      </div>
     </form>
   </div>
 </body>
 
 <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
+  body {
+    margin: 0;
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    background: #f8f9fa;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+  }
+
+  .nuevo-viaje-container {
+    width: 100vw;
+    height: 100vh;
+    padding: 2rem;
+    border-radius: 0;
+    background: #ffffff;
+    box-shadow: none;
+    overflow-y: auto;
+    animation: fadeIn 0.8s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
     }
 
-    .nuevo-viaje-container {
-      width: 100%;
-      max-width: 500px;
-      padding: 2rem;
-      border-radius: 16px;
-      background: #ffffff;
-      border: 1px solid #e0e0e0;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-      animation: fadeIn 0.8s ease;
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .nuevo-viaje-container h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c3e50;
+  }
+
+  form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 2rem;
+    flex-grow: 1;
+  }
+
+    form .full-width {
+      grid-column: span 2;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+  .nuevo-viaje-container label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: #444;
+  }
 
-    .nuevo-viaje-container h2 {
-      text-align: center;
-      margin-bottom: 1.5rem;
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #2c3e50;
-    }
-
-    .nuevo-viaje-container label {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 0.4rem;
-      color: #444;
-    }
-
-    .nuevo-viaje-container input,
-    .nuevo-viaje-container textarea,
-    .nuevo-viaje-container select {
-      width: 100%;
-      padding: 0.8rem;
-      margin-bottom: 1.2rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-family: inherit;
-      transition: border 0.2s ease, box-shadow 0.2s ease;
-      background: #fafafa;
-    }
+  .nuevo-viaje-container input,
+  .nuevo-viaje-container textarea,
+  .nuevo-viaje-container select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+    background: #fafafa;
+  }
 
     .nuevo-viaje-container input:focus,
     .nuevo-viaje-container textarea:focus,
@@ -111,55 +132,58 @@
       background: #fff;
     }
 
-    .nuevo-viaje-container textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
+  .nuevo-viaje-container textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
 
-    .nuevo-viaje-container button {
-      width: 100%;
-      padding: 1rem;
-      border: none;
-      border-radius: 10px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.3s ease, transform 0.1s ease;
-    }
+  .nuevo-viaje-container button {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.1s ease;
+  }
 
     .nuevo-viaje-container button.crear {
       background: #007bff;
       color: #fff;
     }
 
-    .nuevo-viaje-container button.crear:hover:not(:disabled) {
-      background: #0056b3;
-      transform: scale(1.02);
-    }
+      .nuevo-viaje-container button.crear:hover:not(:disabled) {
+        background: #0056b3;
+        transform: scale(1.02);
+      }
 
     .nuevo-viaje-container button.editar {
       background: #28a745;
       color: #fff;
     }
 
-    .nuevo-viaje-container button.editar:hover:not(:disabled) {
-      background: #218838;
-      transform: scale(1.02);
-    }
+      .nuevo-viaje-container button.editar:hover:not(:disabled) {
+        background: #218838;
+        transform: scale(1.02);
+      }
+
     .nuevo-viaje-container button:disabled {
       background: #bbb;
       cursor: not-allowed;
     }
 
-    @media (max-width: 600px) {
-      body {
-        padding: 1rem;
-      }
-      .nuevo-viaje-container {
-        padding: 1.5rem;
-      }
-      .nuevo-viaje-container h2 {
-        font-size: 1.5rem;
-      }
+  @media (max-width: 768px) {
+    form {
+      grid-template-columns: 1fr;
     }
-  </style>
+
+      form .full-width {
+        grid-column: span 1;
+      }
+
+    .nuevo-viaje-container h2 {
+      font-size: 1.6rem;
+    }
+  }
+</style>
